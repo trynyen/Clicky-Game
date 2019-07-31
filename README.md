@@ -1,3 +1,7 @@
+* This is a react clicky, there are 12 image cards, click an image no more than once until you have gone through all image cards
+
+* Follow the below instructions to run the app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
