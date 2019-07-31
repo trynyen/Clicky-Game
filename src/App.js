@@ -11,7 +11,8 @@ class App extends Component {
     friends,
     score: 0,
     topScore: 0,
-    clickedFriend: []
+    clickedFriend: [],
+    alert: "Click an image to begin!"
   };
 
   shuffleAndScore = id => {
@@ -42,15 +43,14 @@ class App extends Component {
       this.state.friends.sort(() => Math.random() - 0.5);
     }
 
-    if(score > topScore){
+    if(score >= topScore){
       this.setState({
-        topScore: score
+        topScore: score +1
       })
     }
   }
 
   handleIncrement = () => {
-    // setState updates a components states
     this.setState({ score: this.state.score + 1 });
   };
   
@@ -60,7 +60,7 @@ class App extends Component {
 
       <Wrapper>
 
-        <Navbar score = {this.state.score} topscore={this.state.topscore}>
+        <Navbar score = {this.state.score} topScore={this.state.topScore}>
       
         </Navbar>
 
