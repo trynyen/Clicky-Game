@@ -24,7 +24,7 @@ class App extends Component {
         <Title>Friends List</Title>
         {this.state.friends.map(friend => (
           <FriendCard
-            removeFriend={this.removeFriend}
+            // removeFriend={this.removeFriend}
             id={friend.id}
             key={friend.id}
             // name={friend.name}
