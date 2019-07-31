@@ -15,8 +15,9 @@ class App extends Component {
     status: "Click an image to begin!"
   };
 
+  
   shuffleAndScore = id => {
-    // assign the state of the empty array to a let to be updated
+    // Assign state
     let clickedFriend = this.state.clickedFriend;
     let score = this.state.score;
     let topScore = this.state.topScore;
@@ -24,11 +25,14 @@ class App extends Component {
     this.setState({
       status: "You guessed correctly"
     });
+    //If id hasn't got chosen (not in array), push id to array
+    //and shuffle cards
     if (clickedFriend.indexOf(id) === -1) {
       clickedFriend.push(id);
       this.handleIncrement();
       this.state.friends.sort(() => Math.random() - 1);
     }
+    //If user has guessed correctly all 12 cards, reset state
     else if (this.state.score === 12) {
       this.setState({
         score: 0,
@@ -36,6 +40,7 @@ class App extends Component {
         status: "You won!!! Click an image to try again"
       })
     }
+    //Otherwise, reset state and alert user that they guessed wrong then shuffle cards
     else {
       this.setState({
         score: 0,
@@ -46,6 +51,7 @@ class App extends Component {
       this.state.friends.sort(() => Math.random() - 1);
     }
 
+    //If score is higher than top Score, update top score to cscurrent score
     if (score > topScore) {
       this.setState({
         topScore: score + 1
@@ -53,6 +59,7 @@ class App extends Component {
     }
   }
 
+  //Everytime user guesses right, add point to score
   handleIncrement = () => {
     this.setState({ score: this.state.score + 1 });
   };
@@ -62,7 +69,7 @@ class App extends Component {
     return (
 
       <Wrapper>
-
+        {/* This is where points and game staus show */}
         <Navbar score={this.state.score} status={this.state.status} topScore={this.state.topScore}>
 
         </Navbar>
@@ -72,6 +79,7 @@ class App extends Component {
           <p>Click on an image to earn points, but don't click on any more than once</p>
         </Heading>
 
+        {/* assign value to each card */}
         {this.state.friends.map(friend => (
           <FriendCard
             shuffleAndScore={this.shuffleAndScore}
