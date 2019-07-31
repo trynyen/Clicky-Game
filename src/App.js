@@ -8,35 +8,73 @@ import friends from "./friends.json";
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    friends
+    friends,
+    score: 0,
+    topScore: 0,
+    clickedFriend: []
   };
 
-  removeFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ friends });
-  };
+  shuffleAndScore = id => {
+    // assign the state of the empty array to a let to be updated
+    let clickedFriend = this.state.clickedFriend;
+    let score = this.state.score;
+    let topScore = this.state.topScore;
+  
+    // this.setState({
+    //   showAlert: 0
+    // });
+    if (clickedFriend.indexOf(id) === -1){
+      clickedFriend.push(id);
+      this.handleIncrement();
+      this.state.friends.sort(() => Math.random() - 0.5);
+    }
+    else if (this.state.score === 12){
+      this.setState({
+        score: 0,
+        clickedFriend: []
+      })
+    }
+    else{
+      this.setState({
+        score:0,
+        clickedFriend:[]
+      })
+      this.state.friends.sort(() => Math.random() - 0.5);
+    }
 
+    if(score > topScore){
+      this.setState({
+        topScore: score
+      })
+    }
+  }
+
+  handleIncrement = () => {
+    // setState updates a components states
+    this.setState({ score: this.state.score + 1 });
+  };
+  
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
 
       <Wrapper>
-        <Navbar></Navbar>
+
+        <Navbar score = {this.state.score} topscore={this.state.topscore}>
+      
+        </Navbar>
+
         <Heading>
           <h3>Clicky Game!</h3>
           <p>Click on an image to earn points, but don't click on any more than once</p>
-          </Heading>
-        {this.state.friends.map(friend => (
+        </Heading>
+
+          {this.state.friends.map(friend => (
           <FriendCard
-            // removeFriend={this.removeFriend}
+            shuffleAndScore={this.shuffleAndScore}
             id={friend.id}
             key={friend.id}
-            // name={friend.name}
             image={friend.image}
-          // occupation={friend.occupation}
-          // location={friend.location}
           />
         ))}
       </Wrapper>

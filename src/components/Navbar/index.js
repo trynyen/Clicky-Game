@@ -7,7 +7,7 @@ function Navbar(props) {
       <ul>
       <li className="brand">Clicky Game</li>
       <li>{}</li>
-      <li>Score: {} | Top Score: {}</li>
+      <li>Score: {props.score} | Top Score: {props.topscore}</li>
 
   </ul>
       </nav>
