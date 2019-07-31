@@ -2,12 +2,12 @@ import React from "react";
 import "./style.css";
 
 function Navbar(props) {
-  return <div>
+  return <div className="navbar">
       <nav>
       <ul>
-      <li className="brand">Clicky Game</li>
-      <li>{props.alert}</li>
-      <li>Score: {props.score} | Top Score: {props.topScore}</li>
+      <ul className="brand">Clicky Game</ul>
+      <ul>{props.status}</ul>
+      <ul>Score: {props.score} | Top Score: {props.topScore}</ul>
 
   </ul>
       </nav>

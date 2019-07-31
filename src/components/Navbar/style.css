@@ -3,3 +3,10 @@
     float: left;
 
 } */
+.navbar {
+    position: fixed;
+    background: #6CADDC;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+}

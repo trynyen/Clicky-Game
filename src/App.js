@@ -12,7 +12,7 @@ class App extends Component {
     score: 0,
     topScore: 0,
     clickedFriend: [],
-    alert: "Click an image to begin!"
+    status: "Click an image to begin!"
   };
 
   shuffleAndScore = id => {
@@ -20,32 +20,35 @@ class App extends Component {
     let clickedFriend = this.state.clickedFriend;
     let score = this.state.score;
     let topScore = this.state.topScore;
-  
-    // this.setState({
-    //   showAlert: 0
-    // });
-    if (clickedFriend.indexOf(id) === -1){
+
+    this.setState({
+      status: "You guessed correctly"
+    });
+    if (clickedFriend.indexOf(id) === -1) {
       clickedFriend.push(id);
       this.handleIncrement();
-      this.state.friends.sort(() => Math.random() - 0.5);
+      this.state.friends.sort(() => Math.random() - 1);
     }
-    else if (this.state.score === 12){
+    else if (this.state.score === 12) {
       this.setState({
         score: 0,
-        clickedFriend: []
+        clickedFriend: [],
+        status: "You won!!! Click an image to try again"
       })
     }
-    else{
+    else {
       this.setState({
-        score:0,
-        clickedFriend:[]
+        score: 0,
+        clickedFriend: [],
+        status: "You guessed incorrectly"
+
       })
-      this.state.friends.sort(() => Math.random() - 0.5);
+      this.state.friends.sort(() => Math.random() - 1);
     }
 
-    if(score >= topScore){
+    if (score > topScore) {
       this.setState({
-        topScore: score +1
+        topScore: score + 1
       })
     }
   }
@@ -53,15 +56,15 @@ class App extends Component {
   handleIncrement = () => {
     this.setState({ score: this.state.score + 1 });
   };
-  
+
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
 
       <Wrapper>
 
-        <Navbar score = {this.state.score} topScore={this.state.topScore}>
-      
+        <Navbar score={this.state.score} status={this.state.status} topScore={this.state.topScore}>
+
         </Navbar>
 
         <Heading>
@@ -69,7 +72,7 @@ class App extends Component {
           <p>Click on an image to earn points, but don't click on any more than once</p>
         </Heading>
 
-          {this.state.friends.map(friend => (
+        {this.state.friends.map(friend => (
           <FriendCard
             shuffleAndScore={this.shuffleAndScore}
             id={friend.id}
